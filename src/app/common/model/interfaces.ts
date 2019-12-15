@@ -12,6 +12,10 @@ export interface Team {
   playerTwo: Player;
 }
 
+export interface XlsxRow {
+  [key: string]: number | string;
+}
+
 export interface CsvRow extends Array<string> {
 
 }

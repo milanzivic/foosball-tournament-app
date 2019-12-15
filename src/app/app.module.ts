@@ -7,6 +7,7 @@ import { TeamSorterService } from './providers/team-sorter-service/team-sorter-s
 import { MockDataService } from './providers/mock-data-service/mock-data-service';
 import { FileUploadComponent } from './components/file-upload/file-upload-component';
 import { CsvParserService } from './providers/csv-parser/csv-parser-service';
+import { XlsxParserService } from './providers/xlsx-parser/xlsx-parser-service';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CsvParserService } from './providers/csv-parser/csv-parser-service';
     TeamSorterService,
     MockDataService,
     CsvParserService,
+    XlsxParserService,
   ],
   bootstrap: [AppComponent]
 })

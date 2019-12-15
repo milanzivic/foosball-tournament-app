@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TeamSorterService } from './providers/team-sorter-service/team-sorter-service';
 import { Team, Player } from './common/model/interfaces';
-import { MockDataService } from './providers/mock-data-service/mock-data-service';
+// import { MockDataService } from './providers/mock-data-service/mock-data-service';
 
 @Component({
   selector: 'app-root',
@@ -27,8 +27,8 @@ export class AppComponent {
   }
 
   public generateTeams() {
-    if (!this.players) {
-      alert('Please select CSV file first!');
+    if (!this.players.length) {
+      alert('Please select CSV or XLSX file first!');
       return;
     }
 
