@@ -4,12 +4,14 @@ export interface Player {
   skill: number;
 }
 
-export interface Bucket extends Array<Player> {
-
-};
+export interface Bucket extends Array<Player> { };
 
 export interface Team {
   teamName: string;
   playerOne: Player;
   playerTwo: Player;
+}
+
+export interface CsvRow extends Array<string> {
+
 }

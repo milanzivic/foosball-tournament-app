@@ -5,10 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TeamSorterService } from './providers/team-sorter-service/team-sorter-service';
 import { MockDataService } from './providers/mock-data-service/mock-data-service';
+import { FileUploadComponent } from './components/file-upload/file-upload-component';
+import { CsvParserService } from './providers/csv-parser/csv-parser-service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,
@@ -17,6 +20,7 @@ import { MockDataService } from './providers/mock-data-service/mock-data-service
   providers: [
     TeamSorterService,
     MockDataService,
+    CsvParserService,
   ],
   bootstrap: [AppComponent]
 })
