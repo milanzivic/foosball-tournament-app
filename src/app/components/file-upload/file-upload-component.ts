@@ -18,7 +18,7 @@ export class FileUploadComponent {
     this.fileToUpload = files.item(0);
     const csv: CsvRow[] = await this.csvParser.parseCsvFile(this.fileToUpload);
     const players: Player[] = this.csvParser.generatePlayersFromCsv(csv);
-    console.log(`List of players: ${JSON.stringify(players, null, 2)}`)
+
     // Emit the list of players!
     this.playersEvent.emit(players);
   }

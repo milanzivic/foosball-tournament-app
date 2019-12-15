@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Player } from 'src/app/common/model/interfaces';
+import { Player, Team } from 'src/app/common/model/interfaces';
 import { uniqueNamesGenerator, names, adjectives, colors, animals } from 'unique-names-generator';
+import { mockTeams } from './mock-teams';
 
 @Injectable()
 export class MockDataService {
@@ -32,6 +33,14 @@ export class MockDataService {
     });
 
     return teamName;
+  }
+
+  public getDefaultTeamName(one: Player, two: Player): string {
+    return `${one.name} & ${two.name}`;
+  }
+
+  public getMockTeams(): Team[] {
+    return mockTeams;
   }
 
   private getMockPersonName(): string {

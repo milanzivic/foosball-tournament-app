@@ -35,7 +35,6 @@ export class CsvParserService {
       return { name, email, skill: Number.parseInt(skill) };
     });
 
-    console.log(`Players generated from CSV file: ${JSON.stringify(players, null, 2)}`);
     return players;
   }
 }

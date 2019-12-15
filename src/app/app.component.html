@@ -6,18 +6,13 @@
 </div>
 
 <div class="content" role="main">
-  <div class="temp-data">
-    <button (click)='generateMockNames()'>Generate fake names</button>
-    <button (click)='generateMockTeams()'>Generate fake teams</button>
-    {{ Players }}
-    <hr>
-    {{ Teams }}
+  <file-upload (playersEvent)="setPlayers($event)"></file-upload>
+  <button (click)="generateTeams()">Generate teams!</button>
+  <div class="card-container">
+    <div class="card" *ngFor="let team of flashyTeams">
+      {{ team.teamName }}
+    </div>
   </div>
-
-  <p>Select a CSV file from your system:</p>
-  <file-upload (playersEvent)="getPlayerList($event)"></file-upload>
-
-  <div class="card-container"></div>
 </div>
 
 <router-outlet></router-outlet>
