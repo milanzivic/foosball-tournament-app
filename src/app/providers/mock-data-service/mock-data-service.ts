@@ -9,7 +9,7 @@ export class MockDataService {
 
   public constructor() { }
 
-  public generateMockPlayerList(limit: number): Player[] {
+  public generateMockPlayerList(limit: number = 48): Player[] {
     const players: Player[] = new Array(limit)
       .fill(null)
       .map(() => {
@@ -30,7 +30,6 @@ export class MockDataService {
       separator: ' ',
       style: 'capital',
     });
-    console.log(`Fake name generated: ${name}`);
 
     return teamName;
   }
@@ -42,7 +41,6 @@ export class MockDataService {
       separator: ' ',
       style: 'capital',
     });
-    console.log(`Fake name generated: ${name}`);
 
     return name;
   }

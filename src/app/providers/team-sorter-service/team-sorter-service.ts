@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Player, Team, Bucket } from '../../common/model/interfaces';
 import * as _ from 'lodash';
-import { generate } from 'rxjs';
 import { MockDataService } from '../mock-data-service/mock-data-service';
 
 @Injectable()
@@ -12,14 +11,21 @@ export class TeamSorterService {
   ) { }
 
   public generateTeams(players: Player[]): Team[] {
+
+    // Sort players by ascending skill level
+    players.sort((first: Player, second: Player) => first.skill - second.skill);
+    // console.log(`Sorted players: ${JSON.stringify(players, null, 2)}`);
+
     const buckets: Bucket[] = this.splitToBuckets(players);
-    const teams: Team[] = this.createTeamsFromBuckets(buckets);
+    // console.log(`Buckets: ${JSON.stringify(buckets, null, 2)}`);
+
+    const teams: Team[] = this.createTeamsFromBuckets(buckets, true, true);
 
     // Blablabla
     return teams;
   }
 
-  private splitToBuckets(players: Player[], numOfBuckets?: number): Bucket[] {
+  private splitToBuckets(players: Player[], numOfBuckets: number = 4): Bucket[] {
     if (!Number.isInteger(Math.log2(numOfBuckets))) {
       throw new Error('The number of buckets is not the exponent of 2');
     }
@@ -36,12 +42,22 @@ export class TeamSorterService {
       const iUpperBucket: number = buckets.length - iLowerBucket - 1;
       const upperBucket = buckets[iUpperBucket];
 
+      // console.log(`iLowerBucket: ${iLowerBucket}`);
+      // console.log(`iUpperBucket: ${iUpperBucket}`);
+
       // Shuffle the buckets:
       const leftShuffle: Bucket = _.shuffle(lowerBucket);
       const rightShuffle: Bucket = _.shuffle(upperBucket);
 
-      const teams: Team[] = leftShuffle.map((playerOne: Player, index: number) => {
-        const playerTwo: Player = rightShuffle[index];
+      // console.log(`leftShuffle: ${leftShuffle}`);
+      // console.log(`rightShuffle: ${rightShuffle}`);
+
+      const teams: Team[] = leftShuffle.map((lowerPlayer: Player, index: number) => {
+        const upperPlayer: Player = rightShuffle[index];
+
+        // Shuffle team members:
+        const [playerOne, playerTwo] = _.shuffle([lowerPlayer, upperPlayer])
+
 
         const teamName: string = generateFakeName
           ? this.mockDataService.getMockTeamName()
@@ -50,11 +66,14 @@ export class TeamSorterService {
         return { teamName, playerOne, playerTwo };
       });
 
+      // console.log(`Teams for lower index ${iLowerBucket} and upper index ${iUpperBucket} => ${JSON.stringify(teams, null, 2)}`);
       return teams;
     });
 
     // Flatten the teams array and shuffle teams if neccessary
-    const response: Team[] = _.flatten((shuffle) ? _.shuffle(allTeams) : allTeams);
+    const response: Team[] = (shuffle) ? _.shuffle(_.flatten(allTeams)) : _.flatten(allTeams);
+
+    // console.log(`Final team list: ${JSON.stringify(response, null, 2)}`)
     return response;
   }
 }
