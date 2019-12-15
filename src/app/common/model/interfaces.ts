@@ -9,7 +9,7 @@ export interface Bucket extends Array<Player> {
 };
 
 export interface Team {
-  name: string;
+  teamName: string;
   playerOne: Player;
   playerTwo: Player;
 }

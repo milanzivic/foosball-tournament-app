@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TeamSorterService } from './providers/team-sorter-service/team-sorter-service';
+import { MockDataService } from './providers/mock-data-service/mock-data-service';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,10 @@ import { AppComponent } from './app.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    TeamSorterService,
+    MockDataService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
