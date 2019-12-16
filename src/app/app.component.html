@@ -7,10 +7,14 @@
 
 <div class="content" role="main">
   <file-upload (playersEvent)="setPlayers($event)"></file-upload>
-  <button (click)="generateTeams()">Generate teams!</button>
-  <div class="card-container">
-    <div class="card" *ngFor="let team of flashyTeams">
-      {{ team.teamName }}
+  <file-download [isDone]="isDone" [teams]="teams"></file-download>
+  <div *ngIf="this.players.length">
+    <!-- Move this to separate component -->
+    <button *ngIf="showGenerateTeams" (click)="generateTeams()">Generate teams!</button>
+    <div class="card-container">
+      <div class="card" *ngFor="let team of flashyTeams">
+        {{ team.teamName }}
+      </div>
     </div>
   </div>
 </div>

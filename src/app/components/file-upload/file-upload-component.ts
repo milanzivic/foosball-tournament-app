@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core'
 import { CsvParserService } from 'src/app/providers/csv-parser/csv-parser-service';
-import { Player, CsvRow } from 'src/app/common/model/interfaces';
+import { Player } from 'src/app/common/model/interfaces';
 import { XlsxParserService } from 'src/app/providers/xlsx-parser/xlsx-parser-service';
 
 @Component({

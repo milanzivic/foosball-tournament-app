@@ -13,6 +13,7 @@ export class AppComponent {
   public teams: Team[] = [];
   public flashyTeams: Team[] = [];
   public isDone: boolean = false;
+  public showGenerateTeams: boolean = true;
 
 
   public constructor(
@@ -31,10 +32,9 @@ export class AppComponent {
       alert('Please select CSV or XLSX file first!');
       return;
     }
-
+    this.showGenerateTeams = false;
     this.teams = this.teamSorterService.generateTeams(this.players);
     this.generateFlashyTeams(this.teams);
-
   }
 
   public generateFlashyTeams(teams: Team[], delay: number = 10000) {
@@ -45,7 +45,6 @@ export class AppComponent {
     addToFlashyList();
     const t = setInterval(() => {
       if (this.flashyTeams.length === teams.length) {
-        console.log('Teams generated');
         clearInterval(t);
         this.isDone = true;
         return;

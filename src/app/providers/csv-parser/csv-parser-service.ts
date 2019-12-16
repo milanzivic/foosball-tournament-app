@@ -1,13 +1,13 @@
 import { Injectable } from "@angular/core";
 import * as Papa from 'papaparse';
-import { Player, CsvRow } from 'src/app/common/model/interfaces';
+import { Player, DataRow } from 'src/app/common/model/interfaces';
 
 @Injectable()
 export class CsvParserService {
   public constructor() { }
 
   public async parseCsvFile(file: File): Promise<Player[]> {
-    const generatePlayersFromCsv = (csvData: CsvRow[]): Player[] => {
+    const generatePlayersFromCsv = (csvData: DataRow[]): Player[] => {
       /**
        * // FIXME:
        * This approach assumes that the correct order of the data in the array is:
@@ -15,7 +15,7 @@ export class CsvParserService {
        * Please fix this in the future
        */
 
-      const players: Player[] = csvData.map((row: CsvRow) => {
+      const players: Player[] = csvData.map((row: DataRow) => {
         const [, email, name, skill] = row;
         return { name, email, skill: Number.parseInt(skill) };
       });
