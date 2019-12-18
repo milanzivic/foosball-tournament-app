@@ -4,6 +4,11 @@ import { XlsxRow, Player, Team, DataRow } from 'src/app/common/model/interfaces'
 
 @Injectable()
 export class XlsxParserService {
+  /**
+   * Method which parses XLSX file and returns list of players
+   *
+   * @param file : File - XLSX file
+   */
   public async parseXlsxFile(file: File): Promise<Player[]> {
     const generatePlayersFromXlsxWorkSheet = (rows: XLSX.WorkSheet): Player[] => {
       /**
@@ -37,6 +42,11 @@ export class XlsxParserService {
     });
   }
 
+  /**
+   * Method which wraps list of teams into XLS workbook and downloads it
+   *
+   * @param teams: Team[] - list of teams
+   */
   public downloadXlsxFile(teams: Team[]): void {
     const rows: DataRow[] = this.generateDataRowsFromTeams(teams);
     const worksheet = XLSX.utils.aoa_to_sheet(rows);
@@ -45,6 +55,11 @@ export class XlsxParserService {
     XLSX.writeFile(workbook, 'teams.xlsx');
   }
 
+  /**
+   * Method which generates data rows used in creating XLSX workbook
+   *
+   * @param teams : Team[] - list of teams
+   */
   private generateDataRowsFromTeams(teams: Team[]): DataRow[] {
     const headers: DataRow = [
       'Group', 'Team Name',

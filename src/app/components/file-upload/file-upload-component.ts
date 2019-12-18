@@ -15,7 +15,12 @@ export class FileUploadComponent {
     private xlsxParser: XlsxParserService,
   ) { }
 
-  public async handleFileInput(files: FileList): Promise<void> {
+  /**
+   * Handles file upload and emits the list of players
+   *
+   * @param files: FileList - Uploaded file
+   */
+  public async handleFileUpload(files: FileList): Promise<void> {
     const file = files.item(0);
     const players: Player[] = await this.parseFile(file);
 
@@ -23,7 +28,11 @@ export class FileUploadComponent {
     this.playersEvent.emit(players);
   }
 
-
+  /**
+   * Calls the correct parsing service based on file extension
+   *
+   * @param file
+   */
   private async parseFile(file: File) {
     const map = {
       'xlsx': this.xlsxParser.parseXlsxFile,

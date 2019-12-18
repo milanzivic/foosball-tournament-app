@@ -6,6 +6,11 @@ import { Player, DataRow } from 'src/app/common/model/interfaces';
 export class CsvParserService {
   public constructor() { }
 
+  /**
+   * Service which parses CSV file and returns the list of players
+   *
+   * @param file : File - CSV file
+   */
   public async parseCsvFile(file: File): Promise<Player[]> {
     const generatePlayersFromCsv = (csvData: DataRow[]): Player[] => {
       /**
@@ -23,6 +28,7 @@ export class CsvParserService {
       return players;
     }
 
+    // Promise wrapper for PapaParse
     return new Promise((resolve, reject) => {
       try {
         Papa.parse(file, {

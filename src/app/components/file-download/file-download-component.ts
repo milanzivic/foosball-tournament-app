@@ -14,6 +14,9 @@ export class FileDownloadComponent {
     private xlsxService: XlsxParserService
   ) { }
 
+  /**
+   * Initiates download of the XLSX file
+   */
   public initDownload() {
     this.xlsxService.downloadXlsxFile(this.teams);
   }

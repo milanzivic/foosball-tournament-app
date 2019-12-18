@@ -10,6 +10,11 @@ export class MockDataService {
 
   public constructor() { }
 
+  /**
+   * Mock method which generates the list of players
+   *
+   * @param limit: number - num of players generated
+   */
   public generateMockPlayerList(limit: number = 48): Player[] {
     const players: Player[] = new Array(limit)
       .fill(null)
@@ -24,6 +29,9 @@ export class MockDataService {
     return players;
   }
 
+  /**
+   * Mock method which generates fake team names
+   */
   public getMockTeamName(): string {
     const teamName: string = uniqueNamesGenerator({
       dictionaries: [colors, animals],
@@ -35,14 +43,28 @@ export class MockDataService {
     return teamName;
   }
 
+  /**
+   * Method which returns default team name in format of
+   * 'Player One & Player Two'
+   *
+   * @param one : Player - player one
+   * @param two : Player - player two
+   */
   public getDefaultTeamName(one: Player, two: Player): string {
     return `${one.name} & ${two.name}`;
   }
 
+  /**
+   * Returns preexisting list of mock teams.
+   * Useful for UI development, but nothing else
+   */
   public getMockTeams(): Team[] {
     return mockTeams;
   }
 
+  /**
+   * Mock method which returns fake name
+   */
   private getMockPersonName(): string {
     const name: string = uniqueNamesGenerator({
       dictionaries: [adjectives, names],
@@ -54,6 +76,10 @@ export class MockDataService {
     return name;
   }
 
+  /**
+   * Mock method which returns fake email address
+   * in format of flastname@ztech.io
+   */
   private getMockEmail(name: string): string {
     const [first, last] = name.split(' ');
     return `${first.slice(0, 1)[0].toLowerCase()}${last.toLowerCase()}@ztech.io`;
