@@ -10,19 +10,18 @@ export class TeamSorterService {
     private mockDataService: MockDataService,
   ) { }
 
-  public generateTeams(players: Player[]): Team[] {
-    console.log(`List of players: ${JSON.stringify(players, null, 2)}`);
+  public generateTeams(players: Player[], groupNames: string[]): Team[] {
+    // console.log(`List of players: ${JSON.stringify(players, null, 2)}`);
 
     // Sort players by ascending skill level
     players.sort((first: Player, second: Player) => first.skill - second.skill);
-    console.log(`Sorted players: ${JSON.stringify(players, null, 2)}`);
+    // console.log(`Sorted players: ${JSON.stringify(players, null, 2)}`);
 
     const buckets: Bucket[] = this.splitToBuckets(players);
     // console.log(`Buckets: ${JSON.stringify(buckets, null, 2)}`);
 
-    const teams: Team[] = this.createTeamsFromBuckets(buckets, true);
+    const teams: Team[] = this.createTeamsFromBuckets(buckets, groupNames);
 
-    // Blablabla
     return teams;
   }
 
@@ -35,11 +34,11 @@ export class TeamSorterService {
     return _.chunk(players, bucketSize);
   }
 
-  private createTeamsFromBuckets(buckets: Bucket[], shuffle: boolean = true) {
+  private createTeamsFromBuckets(buckets: Bucket[], groupNames: string[]) {
     const lowerBuckets: Bucket[] = buckets.slice(0, buckets.length / 2);
 
     const allTeams: Team[][] = lowerBuckets.map((lowerBucket: Bucket, iLowerBucket: number) => {
-      // Get the correspnding upper bucket:
+      // Get the corresponding upper bucket:
       const iUpperBucket: number = buckets.length - iLowerBucket - 1;
       const upperBucket = buckets[iUpperBucket];
 
@@ -69,18 +68,16 @@ export class TeamSorterService {
       return teams;
     });
 
-    // Flatten the teams array and shuffle teams if neccessary
-    const shuffledTeams: Team[] = (shuffle) ? _.shuffle(_.flatten(allTeams)) : _.flatten(allTeams);
+    // Flatten the teams array and shuffle teams
+    const shuffledTeams: Team[] = _.shuffle(_.flatten(allTeams));
 
     // Assign groups
     const finalTeams: Team[] = shuffledTeams.map((team: Team, index: number, arr: Team[]) => {
-      // FIXME: This should be more generic, MUCH MORE GENERIC
-      const groupNames = ['A', 'B', 'C', 'D'];
       const groupIndex = Math.floor(index / 6);
       return Object.assign({}, team, { group: groupNames[groupIndex] });
     })
 
-    console.log(`Final team list: ${JSON.stringify(finalTeams, null, 2)}`)
+    // console.log(`Final team list: ${JSON.stringify(finalTeams, null, 2)}`);
     return finalTeams;
   }
 }

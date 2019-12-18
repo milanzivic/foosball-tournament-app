@@ -11,20 +11,23 @@ import * as _ from 'lodash';
 export class AppComponent {
   public players: Player[] = [];
   public teams: Team[] = [];
-  public groups: Team[][];
-  public isDone: boolean = false;
-  public showGenerateTeams: boolean = true;
-  public delay: number = 1000;
-
+  public groups: Team[][] = [[], [], [], []];
+  public isDone: boolean;
+  public generateStarted: boolean;
+  public showGenerateTeams: boolean;
+  public delay: number = 1000; // Should be editable
+  public readonly numOfGroups: number = 4; // Should be editable
+  public groupNames: string[];
 
   public constructor(
     private teamSorterService: TeamSorterService,
   ) {
-    this.groups = [[], [], [], []];
+    this.groupNames = this.generateGroupNames();
   }
 
   public setPlayers(players: Player[]) {
     this.players = players;
+    this.showGenerateTeams = true;
   }
 
   public generateTeams() {
@@ -33,32 +36,42 @@ export class AppComponent {
       return;
     }
     this.showGenerateTeams = false;
-    this.teams = this.teamSorterService.generateTeams(this.players);
-    this.generateGroups(this.teams);
+    this.teams = this.teamSorterService.generateTeams(this.players, this.groupNames);
+    this.generateGroups();
   }
 
-  // FIXME: This code is badddd
-  public generateGroups(teams: Team[]) {
+  // Move this to separate service...?
+  public generateGroups() {
     const teamsToSort = this.teams.slice(0);
-    const [groupA, groupB, groupC, groupD] = _.chunk(teamsToSort, 6);
-    const groupArr = [groupA, groupB, groupC, groupD];
+    const numOfTeamsInGroups: number = teamsToSort.length / this.numOfGroups;
+    const groupArr = _.chunk(teamsToSort, numOfTeamsInGroups);
 
-    const getGroupLength = () => {
+    const getGroupLength = (): number => {
       return _.flatten(this.groups).length;
-    }
-
-    const addToGroups = (groupIndex: number): void => {
-      this.groups[groupIndex].push(groupArr[groupIndex].pop());
     };
 
-    addToGroups(0);
+    const addToGroups = (groupIndex: number): void => {
+      this.groups[groupIndex].push(groupArr[groupIndex].shift());
+    };
     const t = setInterval(() => {
-      if (teams.length === getGroupLength()) {
+      if (this.teams.length === getGroupLength()) {
         clearInterval(t);
         this.isDone = true;
         return;
       }
-      addToGroups(getGroupLength() % 4);
-    }, this.delay)
+      addToGroups(getGroupLength() % this.numOfGroups);
+    }, this.delay);
   }
+
+  public transformGroupNameToClass(groupName: string): string {
+    return groupName.toLowerCase().split(' ').join('-');
+  }
+
+  private generateGroupNames(): string[] {
+    let asciiValue = 65;
+    return Array(this.numOfGroups)
+      .fill('')
+      .map(() => `Group ${String.fromCharCode(asciiValue++)}`);
+  }
+
 }
