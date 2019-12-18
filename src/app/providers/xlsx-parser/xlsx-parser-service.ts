@@ -47,13 +47,14 @@ export class XlsxParserService {
 
   private generateDataRowsFromTeams(teams: Team[]): DataRow[] {
     const headers: DataRow = [
-      'Team Name',
+      'Group', 'Team Name',
       'Player One', 'Player One Email', 'Player One Skill',
       'Player Two', 'Player Two Email', 'Player Two Skill',
     ];
 
     const flatTeams: DataRow[] = teams.map((team: Team) => {
       const {
+        group,
         teamName,
         playerOne: {
           name: playerOneName,
@@ -68,7 +69,7 @@ export class XlsxParserService {
       } = team;
 
       return [
-        teamName,
+        group, teamName,
         playerOneName, playerOneEmail, playerOneSkill.toString(),
         playerTwoName, playerTwoEmail, playerTwoSkill.toString(),
       ];

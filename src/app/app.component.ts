@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TeamSorterService } from './providers/team-sorter-service/team-sorter-service';
 import { Team, Player } from './common/model/interfaces';
-// import { MockDataService } from './providers/mock-data-service/mock-data-service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-root',
@@ -11,16 +11,16 @@ import { Team, Player } from './common/model/interfaces';
 export class AppComponent {
   public players: Player[] = [];
   public teams: Team[] = [];
-  public flashyTeams: Team[] = [];
+  public groups: Team[][];
   public isDone: boolean = false;
   public showGenerateTeams: boolean = true;
+  public delay: number = 1000;
 
 
   public constructor(
     private teamSorterService: TeamSorterService,
-    // private mockService: MockDataService,
   ) {
-    // this.flashyTeams = this.mockService.getMockTeams();
+    this.groups = [[], [], [], []];
   }
 
   public setPlayers(players: Player[]) {
@@ -34,22 +34,31 @@ export class AppComponent {
     }
     this.showGenerateTeams = false;
     this.teams = this.teamSorterService.generateTeams(this.players);
-    this.generateFlashyTeams(this.teams);
+    this.generateGroups(this.teams);
   }
 
-  public generateFlashyTeams(teams: Team[], delay: number = 10000) {
-    const addToFlashyList = () => {
-      this.flashyTeams.unshift(teams[this.flashyTeams.length]);
+  // FIXME: This code is badddd
+  public generateGroups(teams: Team[]) {
+    const teamsToSort = this.teams.slice(0);
+    const [groupA, groupB, groupC, groupD] = _.chunk(teamsToSort, 6);
+    const groupArr = [groupA, groupB, groupC, groupD];
+
+    const getGroupLength = () => {
+      return _.flatten(this.groups).length;
+    }
+
+    const addToGroups = (groupIndex: number): void => {
+      this.groups[groupIndex].push(groupArr[groupIndex].pop());
     };
 
-    addToFlashyList();
+    addToGroups(0);
     const t = setInterval(() => {
-      if (this.flashyTeams.length === teams.length) {
+      if (teams.length === getGroupLength()) {
         clearInterval(t);
         this.isDone = true;
         return;
       }
-      addToFlashyList();
-    }, delay)
+      addToGroups(getGroupLength() % 4);
+    }, this.delay)
   }
 }

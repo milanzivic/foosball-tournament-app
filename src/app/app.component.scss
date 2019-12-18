@@ -67,6 +67,7 @@ p {
   .card-group {
     border: 1px solid #ededed;
     margin: 0 0 20px 0;
+    min-height: 60vh;
 
     .card-title {
       padding: 20px 5px;
@@ -92,7 +93,7 @@ p {
     }
     .card-body {
       padding: 5px 8px;
-      min-height: 60vh;
+      min-height: 48px;
     }
   }
 }

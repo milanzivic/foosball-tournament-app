@@ -10,6 +10,7 @@ export interface Team {
   teamName: string;
   playerOne: Player;
   playerTwo: Player;
+  group?: string;
 }
 
 export interface DataRow extends Array<string> {

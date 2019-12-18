@@ -1,6 +1,6 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-  <img alt="ZT Foosball Logo" src="../assets/table-football.png"/>
+  <img alt="ZT Foosball Logo" src="../assets/table-football.png" />
   <span>ZT Foosball Tournament</span>
   <div class="spacer"></div>
 </div>
@@ -9,7 +9,7 @@
 
   <div class="row margin-top-xl">
     <div class="col-sm-8 col-sm-offset-2 col-xs-offset-0 col-xs-12">
-      <div class="title-image"><img alt="ZT Trophy" class="img-responsive" src="../assets/zt-tour-title.jpg"/></div>
+      <div class="title-image"><img alt="ZT Trophy" class="img-responsive" src="../assets/zt-tour-title.jpg" /></div>
     </div>
   </div>
 
@@ -34,8 +34,8 @@
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="card-group">
           <div class="card-title group-a">Group A</div>
-          <div class="card-body">
-            <div class="card">Baba Jaga & Kristal Palace</div>
+          <div *ngFor="let team of groups[0]" class="card-body">
+            <div class="card">{{team.teamName}}</div>
           </div>
         </div>
 
@@ -43,32 +43,32 @@
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="card-group">
           <div class="card-title group-b">Group B</div>
-          <div class="card-body">
-            <div class="card">Baba Jaga & Kristal Palace</div>
+          <div *ngFor="let team of groups[1]" class="card-body">
+            <div class="card">{{team.teamName}}</div>
           </div>
         </div>
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="card-group">
           <div class="card-title group-c">Group C</div>
-          <div class="card-body">
-            <div class="card">Baba Jaga & Kristal Palace</div>
+          <div *ngFor="let team of groups[2]" class="card-body">
+            <div class="card">{{team.teamName}}</div>
           </div>
         </div>
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="card-group">
           <div class="card-title group-d">Group D</div>
-          <div class="card-body">
-            <div class="card">Baba Jaga & Kristal Palace</div>
+          <div *ngFor="let team of groups[3]" class="card-body">
+            <div class="card">{{team.teamName}}</div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="card" *ngFor="let team of flashyTeams">
+    <!-- <div class="card" *ngFor="let team of flashyTeams">
       {{ team.teamName }}
-    </div>
+    </div> -->
 
   </div>
 </div>
