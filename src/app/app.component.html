@@ -13,10 +13,9 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="!generateStarted">
+  <div class="row">
     <div class="col-xs-12 text-center">
-      <file-upload (playersEvent)="setPlayers($event)"></file-upload>
-      <file-download [isDone]="isDone" [teams]="teams"></file-download>
+      <file-upload *ngIf="!generateStarted" (playersEvent)="setPlayers($event)"></file-upload>
     </div>
   </div>
 
@@ -64,6 +63,12 @@
           <div class="card" *ngFor="let team of groups[3]">{{team.teamName}}</div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <file-download *ngIf="isDone" [isDone]="isDone" [teams]="teams"></file-download>
     </div>
   </div>
 

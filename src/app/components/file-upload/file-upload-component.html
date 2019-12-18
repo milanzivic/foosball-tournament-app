@@ -1,7 +1,7 @@
 <div>
   <h3>Select a XLSX or CSV file from your system:</h3>
-  <div class="form-group">
+  <div class="form-group text-center">
     <label for="file">Choose file to upload</label>
-    <input type="file" id="file" accept=".csv, .xlsx" class="form-control" (change)="handleFileInput($event.target.files)">
+    <input type="file" id="file" accept=".csv, .xlsx" (change)="handleFileInput($event.target.files)" style="display: inline-block;">
   </div>
 </div>

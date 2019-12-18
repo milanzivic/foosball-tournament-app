@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+
+.btn.btn-primary {
+  background: #999;
+  padding: 25px 35px;
+  font-size: 22px;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 0;
+  border-color: #ccc;
+  margin: 40px;
+}
