@@ -1,19 +1,19 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-  <img alt="ZT Foosball Logo" src="../assets/table-football.png" />
+  <img alt="ZT Foosball Logo" src="../assets/table-football.png"/>
   <span>ZT Foosball Tournament</span>
   <div class="spacer"></div>
 </div>
 
 <div class="container" role="main">
 
-  <div class="row margin-top-xl">
+  <div class="row margin-top-xl" *ngIf="!generateStarted">
     <div class="col-sm-8 col-sm-offset-2 col-xs-offset-0 col-xs-12">
-      <div class="title-image"><img alt="ZT Trophy" class="img-responsive" src="../assets/zt-tour-title.jpg" /></div>
+      <div class="title-image"><img alt="ZT Trophy" class="img-responsive" src="../assets/zt-tour-title.jpg"/></div>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="!generateStarted">
     <div class="col-xs-12 text-center">
       <file-upload (playersEvent)="setPlayers($event)"></file-upload>
       <file-download [isDone]="isDone" [teams]="teams"></file-download>
@@ -21,56 +21,56 @@
   </div>
 
 
-  <div *ngIf="this.players.length">
-    <!-- Move this to separate component -->
-    <div class="row margin-top-lg">
-      <div class="col-xs-12 text-center">
-        <button class="btn btn-primary" *ngIf="showGenerateTeams" (click)="generateTeams()">Generate teams!</button>
-      </div>
+  <!-- Move this to separate component -->
+  <div class="row margin-top-lg">
+    <div class="col-xs-12 text-center">
+      <button class="btn btn-primary" *ngIf="showGenerateTeams" (click)="generateTeams();generateStarted = true"
+              [disabled]="!this.players.length">Generate teams!
+      </button>
     </div>
-
-
-    <div class="row margin-top-lg">
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="card-group">
-          <div class="card-title group-a">Group A</div>
-          <div *ngFor="let team of groups[0]" class="card-body">
-            <div class="card">{{team.teamName}}</div>
-          </div>
-        </div>
-
-      </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="card-group">
-          <div class="card-title group-b">Group B</div>
-          <div *ngFor="let team of groups[1]" class="card-body">
-            <div class="card">{{team.teamName}}</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="card-group">
-          <div class="card-title group-c">Group C</div>
-          <div *ngFor="let team of groups[2]" class="card-body">
-            <div class="card">{{team.teamName}}</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="card-group">
-          <div class="card-title group-d">Group D</div>
-          <div *ngFor="let team of groups[3]" class="card-body">
-            <div class="card">{{team.teamName}}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- <div class="card" *ngFor="let team of flashyTeams">
-      {{ team.teamName }}
-    </div> -->
-
   </div>
+
+
+  <div class="row margin-top-lg" *ngIf="generateStarted">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="card-group">
+        <div class="card-title group-a">Group A</div>
+        <div class="card-body">
+          <div class="card" *ngFor="let team of groups[0]">{{team.teamName}}</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="card-group">
+        <div class="card-title group-b">Group B</div>
+        <div class="card-body">
+          <div class="card" *ngFor="let team of groups[1]">{{team.teamName}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="card-group">
+        <div class="card-title group-c">Group C</div>
+        <div class="card-body">
+          <div class="card" *ngFor="let team of groups[2]">{{team.teamName}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="card-group">
+        <div class="card-title group-d">Group D</div>
+        <div class="card-body">
+          <div class="card" *ngFor="let team of groups[3]">{{team.teamName}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="card" *ngFor="let team of flashyTeams">
+    {{ team.teamName }}
+  </div> -->
+
 </div>
 
 <router-outlet></router-outlet>
