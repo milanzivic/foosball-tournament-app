@@ -25,11 +25,19 @@ export class AppComponent {
     this.groupNames = this.generateGroupNames();
   }
 
+  /**
+   * Utility method used in fetching generated players
+   *
+   * @param players: Player[]
+   */
   public setPlayers(players: Player[]) {
     this.players = players;
     this.showGenerateTeams = true;
   }
 
+  /**
+   * Method which generates teams based on players
+   */
   public generateTeams() {
     if (!this.players.length) {
       alert('Please select CSV or XLSX file first!');
@@ -41,6 +49,10 @@ export class AppComponent {
   }
 
   // Move this to separate service...?
+  /**
+   * Method which generates groups and adds them to the group array
+   * with the delay
+   */
   public generateGroups() {
     const teamsToSort = this.teams.slice(0);
     const numOfTeamsInGroups: number = teamsToSort.length / this.numOfGroups;
@@ -63,10 +75,18 @@ export class AppComponent {
     }, this.delay);
   }
 
+  /**
+   * Utility method used in generating CSS class
+   *
+   * @param groupName
+   */
   public transformGroupNameToClass(groupName: string): string {
     return groupName.toLowerCase().split(' ').join('-');
   }
 
+  /**
+   * Utility method which generates group names
+   */
   private generateGroupNames(): string[] {
     let asciiValue = 65;
     return Array(this.numOfGroups)
