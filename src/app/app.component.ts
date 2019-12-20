@@ -15,7 +15,7 @@ export class AppComponent {
   public isDone: boolean;
   public generateStarted: boolean;
   public showGenerateTeams: boolean;
-  public delay: number = 1000; // Should be editable
+  public delay: number = 10000; // Should be editable
   public readonly numOfGroups: number = 4; // Should be editable
   public groupNames: string[];
 
